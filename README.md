@@ -6,13 +6,15 @@
 ```
 <img class="image" src="./img/128.png" srcset="./img/128.png 128w, ./img/256.png 256w, ./img/512.png 512w" 
 sizes="(max-width: 320px) 320px, 256px">
+<img class="image" src="./img/128.png" srcset="./img/128.png 128w, ./img/256.png 256w, ./img/512.png 512w" 
+sizes="(-webkit-min-device-pixel-ratio: 2) 320px, 256px">
 ```
 其中 srcset 前面为图片路径，128我，256w，512w表示图片大小规格，他们的最终值为屏幕dpr与屏幕宽度的乘积
 sizes 意思是最大宽度为320px 的时候图片大小为320px，其他情况为256px
-#### picture 标签，自带媒体查询，并根据不要屏幕大小显示不要图片
+#### picture 标签，自带媒体查询，并根据不要屏幕大小或者dpr显示不要图片
 ```
 <picture>
-	<source media="(max-width: 500px)" srcset="http://placehold.it/500"/>
+	<source media="(-webkit-min-device-pixel-ratio: 2)" srcset="http://placehold.it/500"/>
 	<source media="(max-width: 1000px)" srcset="http://placehold.it/1000"/>
 	<source media="(max-width: 1500px)" srcset="http://placehold.it/1500"/>
 	<source media="(max-width: 1920px)" srcset="http://placehold.it/1920"/>

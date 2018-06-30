@@ -1,4 +1,3 @@
-
 # <h1>一、HTML5.1 新增内容</h1>
 ## <h3>1、img 新属性srcset|sizes、picture元素</h3>  
 #### img 标签：srcset 允许设置多个图片源，并根据不同的设备加载不同图片，以前的做法我们通常是使用js进行判断dpr，加载不同图片，现在可以抛弃js，直接使用srcset 和sizes 属性

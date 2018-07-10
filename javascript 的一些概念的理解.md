@@ -38,3 +38,5 @@ b.__proto__=== a.prototype
 	5、所有事件都会冒泡吗
 		1）被阻止的不会冒泡，标准模式下 使用event.stopPagegation() 阻止事件冒泡，IE中使用event.cancelBubble  = true。
 		2）父元素或者祖先元素的事件不同的不会冒泡，比如子元素绑定click，而父元素绑定mouseover 不会冒泡。
+	
+	

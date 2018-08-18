@@ -67,3 +67,4 @@
 	values()：返回键值的遍历器。返回 key 是基本类型的值的数组
 	entries()：返回所有成员的遍历器。返回 key 是基本类型的 key与value组成的数组
 	forEach()：遍历 Map 的所有成员。返回 key 是引用类型的值
+

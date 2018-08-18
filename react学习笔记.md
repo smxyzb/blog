@@ -165,7 +165,7 @@
 			Redirect 组件跳转
 			Switch 只渲染一个子Route 组件
 
-			看到4.11
+
 
 #### react 性能优化
 1、将this 绑定放到 constructor 内

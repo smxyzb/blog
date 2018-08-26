@@ -220,3 +220,7 @@ const numSelector = createSelector(
 	state => ({ num: state * 2 })
 )
 `
+
+#### dva 使用
+1、数据流向
+<img src='https://github.com/smxyzb/blog/blob/master/img/1205240-ff6493dbae42e16d.png'>

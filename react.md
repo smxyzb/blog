@@ -318,6 +318,8 @@ class Demo extends React.PureComponent{
 
 const numSelector = createSelector( state => state, //第二个参数是第一个的返回值 state => ({ num: state \* 2 }) ) `
 
+#### 单向数据流
+
 #### dva 使用
 
 1、数据流向 <img src='https://github.com/smxyzb/blog/blob/master/img/1205240-ff6493dbae42e16d.png'>

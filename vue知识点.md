@@ -145,7 +145,7 @@ function createGetterInvoker(fn) {
     对于模块内部getter 根节点状态作为第三个参数暴露出来
 
     模块的命名空间 ：
-    默认情况下，mutation，action，gettes注册在全局命名空间。可以通过模块的namespaced 属性使模块称为到命名空间的模块。他的所有getter，action，mutation 都会自动根据模块注册的路径调整命名
+    默认情况下，mutation，action，getters注册在全局命名空间。可以通过模块的namespaced 属性使模块称为到命名空间的模块。他的所有getter，action，mutation 都会自动根据模块注册的路径调整命名
 
     ```
     modules: {

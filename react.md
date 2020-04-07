@@ -1,5 +1,7 @@
 #### 先留个问题，等 react 熟悉后再来作答：react 与 vue 有什么区别
 
+#### 踩坑： className(替换class) 、htmlFor(替换label标签的for属性)
+
 #### react 中如何给一个列表渲染的每个列进行事件绑定
 
     该问题来自阿里云的前端面试，当时对react 不熟悉，直接说在每个list 上绑定onclick 事件。然而事实上并不是这样。
@@ -323,3 +325,35 @@ const numSelector = createSelector( state => state, //第二个参数是第一�
 #### dva 使用
 
 1、数据流向 <img src='https://github.com/smxyzb/blog/blob/master/img/1205240-ff6493dbae42e16d.png'>
+
+
+#### ref ：其实就是ReactDOM.render()返回的组件实例，渲染dom元素时，返回是具体的dom节点
+### ref可以挂载到组件上也可以是dom元素上
+### ref属性可以设置为一个回调函数
+```
+<ul ref={ul=>this.ul = ul}>
+```
+
+#### 生命周期
+
+### componentsWillReciveProps: 与 Vue 的 activated 类似
+1、组件第一次存在于dom 中是不会只想的
+2、已经存在dom中才会被执行
+
+### shouldComponentUpdate(nextProps,nextState) ：提升应用性能
+
+```
+shouldComponentUpdate(nextProps,nextState){
+  if(nextProps.content !== nextState.content){
+    return true
+  }
+  return false
+}
+```
+
+#### 函数式编程
+### 代码清晰：每个函数代表一个功能,功能单一
+### 更容易实现前端的自动化测试
+### 纯函数：如果函数的调用参数相同，则永远返回相同的结果。它不依赖于程序执行期间函数外部任何状态或数据的变化，必须只依赖于其输入参数
+
+

@@ -18,7 +18,7 @@ function bubleSort(arr) {
   console.time()
   for (let i = 0; i < len; i++) {
     let temp = arr[i]
-    for (let j = i-1; j >=0; j--) {
+    for (let j = i - 1; j >= 0; j--) {
       if (arr[i] < arr[j]) {
         temp = arr[j]
         arr[j] = arr[i]
@@ -45,7 +45,7 @@ function inertSort(arr) {
     temp = arr[i]
     let j = i - 1
     while (j > -1 && temp > arr[i + 1]) {
-      arr[j+1] = arr[j]
+      arr[j + 1] = arr[j]
       j--
     }
     arr[j + 1] = temp
@@ -55,3 +55,22 @@ function inertSort(arr) {
 }
 
 inertSort(a)
+
+var obj = { a: 1 }
+
+Object.defineProperty(obj, 'a', {
+  enumerable: true,
+  configurable: false,
+  get() {
+    console.log(22222);
+    return 2222
+  },
+  set() {
+    console.log(333);
+    return 333
+  }
+})
+
+obj.a = 2
+console.log(obj);
+console.log(Object.keys(obj));

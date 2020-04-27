@@ -33,7 +33,7 @@ function bubleSort(arr) {
 
 var a = [10, 1, 35, 61, 89, 36, 55]
 
-bubleSort(a)
+// bubleSort(a)
 
 
 function inertSort(arr) {
@@ -54,35 +54,32 @@ function inertSort(arr) {
   console.log(arr);
 }
 
-inertSort(a)
+// inertSort(a)
 
-
-function findNum(arr) {
-  let resultArr = new Set()
-  let len = arr.length
-  let a, b, c
-  for (let i = 0; i < len; i++) {
-    a = arr[i]
-    console.log('a->:',a);
-    for (let j = 0; j < len; j++) {
-      b = arr[j]
-      if (a !== b) {
-        console.log('b->:', b);
-        c = arr.find(item => {
-          return a + b + item === 0
-        })
-        console.log('c->:', c);
-        let newArr = [a, b, c].sort()
-        if (c) {
-          resultArr.push(newArr)
-        }
-      }
-    }
+var obj = new Proxy({}, {
+  // set(target, propKey, value, receiver) {
+  //   console.log('set');
+  //   console.log(target, propKey, value, receiver);
+  // },
+  get(target, propKey, value) {
+    console.log(target);
+    console.log(propKey);
+    console.log(value);
+  },
+  deleteProperty(target, propKey) {
+    console.log(target);
+    console.log(propKey);
+  },
+  defineProperty(target, propKey, propDesc) {
+    console.log(target,propKey, propDesc);
   }
+})
 
-  console.log(resultArr);
-  return resultArr
-}
+obj.a = 3
+obj.b = 4
+// console.log(obj);
+delete obj.a
 
-let arr = [-1, 0, 1, 2, -1, -4]
-findNum(arr)
+
+var str = Object.prototype.toString.call({})
+console.log(str);

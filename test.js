@@ -1,76 +1,114 @@
-// 实现1===2===3
 
-// var a = {
-//   value: 1,
-//   valueOf: function () {
-//     console.log(this.value);
-//     this.value = this.value + 1
-//     return this.value
-//   }
+
+function dd() {
+  this.a = 22
+}
+function create2() {
+  // 1、创建一个空的对象
+  var obj = new Object();
+  // 2、获得构造函数，同时删除 arguments 中第一个参数
+  console.log(arguments);
+  var Con = [].shift.call(arguments);
+  console.log(Con);
+  // 3、链接到原型，obj 可以访问构造函数原型中的属性
+  Object.setPrototypeOf(obj, Con.prototype);
+  // 4、绑定 this 实现继承，obj 可以访问到构造函数中的属性
+  var ret = Con.apply(obj, arguments);
+  console.log(ret);
+  // 5、优先返回构造函数返回的对象
+  return ret instanceof Object ? ret : obj;
+};
+
+
+var ee = create2(dd)
+console.log(ee);
+function Animal(name) {
+  this.name = name
+}
+Animal.prototype.bark = function () {
+  console.log('bark');
+}
+// function Dog(obj) {
+//   // Animal.call(this)
+//   function ma() { }
+//   ma.prototype = obj
+//   return new ma
 // }
+// var d = new Dog(Animal)
+// console.log(d);
+// console.log(d.prototype === Animal.prototype);
+// console.log(d.prototype.bark());
 
-// console.log(a == 2 && a == 3 && a == 4);
+// var pro = Object.create(Animal.prototype)
+// pro.constructor = Dog
+// Dog.prototype = pro
 
+// var dog = new Dog(11)
+// console.log(dog.__proto__ === Dog.prototype);
+// console.log(dog.bark());
 
-function bubleSort(arr) {
-  let len = arr.length
-  if (len <= 1) return arr
-  console.time()
-  for (let i = 0; i < len; i++) {
-    let temp = arr[i]
-    for (let j = i - 1; j >= 0; j--) {
-      if (arr[i] < arr[j]) {
-        temp = arr[j]
-        arr[j] = arr[i]
-        arr[i] = temp
-      }
-    }
+function Animal(name) {
+  this.name = name
+}
+Animal.prototype.bark = function () {
+  console.log('bark');
+}
+function Dog(name, age) {
+  Animal.call(this, name)
+  this.age = age
+}
+// 超类型原型副本
+var pro = Object.create(Animal.prototype)
+// constructor 属性
+pro.constructor = Dog
+// 将该完善好的副本赋值给子类型的原型
+Dog.prototype = pro
+// 新增子类原型属性
+Dog.prototype.sayAge = function () {
+  console.log
+    (this.age);
+}
+var dog = new Dog(11, 29)
+console.log(dog);
+console.log(dog.sayAge());
+
+class Rectangle {
+  // constructor
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
   }
-  console.timeEnd()
-  console.log(arr);
-  return arr
+
+  // Getter
+  get area() {
+    return this.calcArea()
+  }
+
+  // Method
+  calcArea() {
+    return this.height * this.width;
+  }
 }
 
-var a = [10, 1, 35, 61, 89, 36, 55]
+const rectangle = new Rectangle(10, 20);
+console.log(rectangle.area);
+// 输出 200
 
-bubleSort(a)
+// 继承
+class Square extends Rectangle {
 
+  constructor(length) {
+    super(length, length);
 
-function inertSort(arr) {
-  let len = arr.length
-  if (len <= 1) return arr
-  let temp
-  console.time()
-  for (let i = 0; i < len; i++) {
-    temp = arr[i]
-    let j = i - 1
-    while (j > -1 && temp > arr[i + 1]) {
-      arr[j + 1] = arr[j]
-      j--
-    }
-    arr[j + 1] = temp
+    // 如果子类中存在构造函数，则需要在使用“this”之前首先调用 super()。
+    this.name = 'Square';
   }
-  console.timeEnd()
-  console.log(arr);
+
+  get area() {
+    return this.height * this.width;
+  }
 }
 
-inertSort(a)
-
-var obj = { a: 1 }
-
-Object.defineProperty(obj, 'a', {
-  enumerable: true,
-  configurable: false,
-  get() {
-    console.log(22222);
-    return 2222
-  },
-  set() {
-    console.log(333);
-    return 333
-  }
-})
-
-obj.a = 2
-console.log(obj);
-console.log(Object.keys(obj));
+const square = new Square(10);
+console.log(square.area);
+// 输出 100

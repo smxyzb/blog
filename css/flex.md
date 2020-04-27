@@ -18,7 +18,7 @@ align-content：定义了多跟轴线的对齐方式。但是如果项目只有�
     <strong>align-items：只是对单根轴线起作用，多轴的情况下，除第一根轴外其他轴线会失效。</strong>
     <strong>align-content：对单轴线不起作用。</strong>
 
-##项目属性
+## 项目属性
 有6个属性作用在项目上
 order：蒂尼项目对的排列顺序，数值越靠前
 flex-grow：定义了项目的放大比例，<strong>默认为0</strong>，如果存在剩余空间也不进行放大

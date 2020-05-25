@@ -122,7 +122,7 @@ FIN 结束标识:标识双方数据发送完成，FIN=1时TCP段内不能包含�
 505 ：请求的http协议不被支持 
 
 #### websocket有几种数据协议
-ws 和 wss
+ws 和 wss (类似https的ws 协议)
 
 #### GET POST 最大区别
 GET 发送一个TCP数据包，而POST 产生两个TCP数据包

@@ -85,6 +85,7 @@
     // 缩进 <head> 和 <body> 部分。
     "html.format.indentInnerHtml": true,
     "material-icon-theme.showUpdateMessage": false,
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
     "git.autofetch": true,
     "explorer.confirmDragAndDrop": true,
     "git.ignoreLimitWarning": true,

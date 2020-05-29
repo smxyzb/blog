@@ -28,10 +28,37 @@ exp1(?!exp2) 查找后面不是exp2的exp1
 
 */
 
-"I? love ?? the ?great ? ?wall in ?beijing".replace(/\W+(?=\w+)/g, ' ').replace(/\w+/g, function (w) {
+var str = "I? love ?? the ?great ? ?wall in ?beijing"
+str.replace(/\W+(?=\w+)/g, ' ').replace(/\w+/g, function (w) {
   return w.substring(0, 1).toUpperCase() + w.substring(1)
 })
 
+// let a = str.replace(/\W+(?=\w+)/g, ' ')
+// console.log(a);
+// let d = str.replace(/(?<=(\w+))\W+/g, ' ')
+// console.log(d);
 
 let arr = new Array(51).fill(0).map((item,index)=> index*2)
-console.log(arr);
+// console.log(arr);
+
+setImmediate(() => {
+  console.log('setImmediate1')
+  setTimeout(() => {
+    console.log('setTimeout1')
+  }, 0);
+})
+setTimeout(() => {
+  console.log('setTimeout2')
+  setImmediate(() => {
+    console.log('setImmediate2')
+  })
+}, 0);
+//首先setImmediate和setTimeout执行顺序不固定
+//所以setImmediate1和setTimeout2,打印顺序不定
+//假设 setImmediate1先打印   有两种顺序
+//1.执行顺序是 setImmediate1  setTimeout2  setTimeout1 setImmediate2
+//2.执行顺序是 setImmediate1  setTimeout2  setImmediate2 setTimeout1
+// 1.setImmediate1打印后把setTimeout1放进timer队列 然后执行setTimeout2 这时候把setImmediate2放进check队列中  打印setTimeout2 发现timer中还有setTimeout1 他就会把timer对列中的执行完 才会执行下一队列的代码
+//然后打印setTimeout1, 切换对列到check  打印setImmediate2
+//2. setImmediate1打印后把setTimeout1放进timer队列 然后执行setTimeout2 这时候把setImmediate2放进check队列中  打印setTimeout2 这个时候node执行过快setTimeout1还没有到时间，所以切换对列执行setImmediate2 然后是setTimeout1
+//setTimeout第二个参数虽然是0，但是都有默认时间一般是4ms左右

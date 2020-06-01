@@ -32,7 +32,7 @@ var str = "I? love ?? the ?great ? ?wall in ?beijing"
 str.replace(/\W+(?=\w+)/g, ' ').replace(/\w+/g, function (w) {
   return w.substring(0, 1).toUpperCase() + w.substring(1)
 })
-
+let arr = new Array(51).fill(0).map((item, index) => index * 2)
 // let a = str.replace(/\W+(?=\w+)/g, ' ')
 // console.log(a);
 // let d = str.replace(/(?<=(\w+))\W+/g, ' ')

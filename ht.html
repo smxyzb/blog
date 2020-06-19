@@ -47,11 +47,56 @@
     </head>
 
     <body>
-        <div class="wrap">
-            <div class="left"></div>
-            <div class="right"></div>
+    <header>
+        <h2>Web APIs<h2>
+    </header>
+    <div class="web-api-cnt">
+        <div class="web-api-card">
+            <div class="web-api-card-head"> Demo - MessageChannel </div>
+            <div class="web-api-card-body">
+                <div id="error" class="close"></div>
+                <div id="displayMsg">
+                </div>
+                <div>
+                    <input id="input" type="text" placeholder="Send message to iframe" />
+                </div>
+                <div>
+                    <button onclick="sendMsg()">Send Msg</button>
+                </div>
+                <div>
+                    <iframe id="iframe" src="./content.html"></iframe>
+                </div>
+            </div>
         </div>
-        <div class="center"></div>
-        <div class="center2">fdfsfds</div>
-    </body>
+    </div>
+</body>
+<script>
+    try {
+        var channel = new MessageChannel()
+        var port1 = channel.port1
+    } catch (e) {
+        error.innerHTML = "MessageChannel API not supported in this device."
+        error.classList.remove("close")
+    }
+
+    iframe.addEventListener("load", onLoad)
+
+    function onLoad() {
+        port1.onmessage = onMessage
+        iframe.contentWindow.postMessage("load", '*', [channel.port2])
+    }
+
+    function onMessage(e) {
+        const newHTML = "<div>" + e.data + "</div>"
+        displayMsg.innerHTML = displayMsg.innerHTML + newHTML
+    }
+
+    function sendMsg() {
+        port1.postMessage(input.value)
+    }
+
+    
+
+</script>
+
 </html>

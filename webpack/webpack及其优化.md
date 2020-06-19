@@ -1,4 +1,34 @@
-#### webpack 优化
+# webpack
+
+## bable-loader 作用和原理
+
+### 作用：语法转换
+
+### 配置 .babellrc
+
+```
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "syntax-dynamic-import"
+  ]
+}
+```
+
+## webpack 优化
+
+### alias 别名路径
+
+```
+resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+    }
+  }
+```
 
 ### 自带优化 treeshaking 默认只在生成环境下生效，并且只支持 es6 import 语法
 
@@ -52,6 +82,15 @@ plugins:[
     }]
   })
 ]
+```
+
+### externals ，在 html 直接 script 引入插件
+
+```
+    externals : {
+       react: 'react',
+       redux: 'redux'
+    }
 ```
 
 ### dllPlugin 模块动态链接库
@@ -125,6 +164,7 @@ document.addEventlistener('click',function(){
 ```
 
 ### 热更新（不是刷新）
+
 ```
 plugins:[
   new webpack.NamedModulesPlugin(),// 打印更新的模块路径

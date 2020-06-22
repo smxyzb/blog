@@ -1,4 +1,6 @@
-## let 、const
+## let，const 为什么不能重复定义
+
+## Set 和 Map 是基于什么来遍历的，iterator 未完成时候 next 是什么
 
 ### 不可重复声明
 
@@ -138,3 +140,13 @@ objToMap({'name': 'An', 'des': 'JS'}) // Map {"name" => "An", "des" => "JS"}
 #### 操作方法 has(), get(), set(), delete()
 
 #### ES6 规定，WeakMap 不能遍历
+
+## Promise 实现，手写 Promise
+
+## Promise all trace 在其中有个 resolve 或者 reject 的情况
+
+## es6 数组新方法有哪些，reduce 的用法
+
+## ex6 Proxy 与 Reflect 的关系
+
+## class 里面的 super 与 this 的区别

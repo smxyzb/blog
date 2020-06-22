@@ -43,3 +43,7 @@ for (const iterator of obj) {
 
 
 console.log(Object.values(obj));
+
+let unary = fn => val => fn(val)
+let parse = unary(parseInt)
+console.log(parseInt(5, 4))

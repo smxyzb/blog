@@ -2,6 +2,8 @@
 
 ## Vue mergeOption 规则
 
+## Vue 响应式绑定,set ,get 里面做的什么事情
+
 ## Vue 数组改变不重写方法
 
 ## diff 过程

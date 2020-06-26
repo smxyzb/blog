@@ -123,56 +123,6 @@ var a = P[0],
     d = P[3];
 ```
 
-# 如何让 for of 能遍历对象
-
-## 给对象部署[Symbol.iterator]方法
-
-```
-let obj = {
-  data: {
-
-  },
-  a: 1, b: 3, c: function name(params) {
-
-  },
-  [Symbol.iterator]() {
-    let keyArr = Object.keys(obj)
-    let index = 0
-    return {
-      next() {
-        return index < keyArr.length ? {
-          value: {
-            key: keyArr[index],
-            val: obj[keyArr[index++]]
-          }
-        } : {
-            done: true
-          }
-      }
-    }
-  }
-}
-
-```
-
-## 生成器 genarator 和迭代器 iterator
-
-### genarator 生产 iterator
-
-```
-function* read(params) {
-    for (let i = 0; i < params.length; i++) {
-        const element = params[i];
-        yield params[i];
-    }
-}
-let it = read(['js', 'node', 'java'])
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-```
-
 # Set 和 Map 是基于什么来遍历的，iterator 未完成时候 next 是什么
 
 # Set、Map、WeakSet 和 WeakMap
@@ -260,9 +210,7 @@ objToMap({'name': 'An', 'des': 'JS'}) // Map {"name" => "An", "des" => "JS"}
 
 ### ES6 规定，WeakMap 不能遍历
 
-# Promise 实现，手写 Promise
 
-# Promise all trace 在其中有个 resolve 或者 reject 的情况
 
 # es6 数组新方法有哪些，reduce 的用法
 
@@ -270,50 +218,4 @@ objToMap({'name': 'An', 'des': 'JS'}) // Map {"name" => "An", "des" => "JS"}
 
 # ex6 Proxy 与 Reflect 的关系
 
-# class 里面的 super 与 this 的区别
 
-# async/await 实现原理
-
-## async 是 generator 的语法糖，可实现对 generator 的自动调用
-
-```
-function Await(genF) {
-  return new Promise((resolve, reject) => {
-    const gen = genF()
-    function step(nextF) {
-      let next
-      try {
-        next = nextF()
-      } catch (error) {
-        reject(error)
-      }
-      if (next.done) {
-       return resolve(next.value)
-      }
-      Promise.resolve(next.value).then((v) => {
-        step(function name() {
-          return gen.next(v)
-        })
-      })
-    }
-
-    step(function () {
-      return gen.next()
-    })
-  })
-}
-
-function* genF() {
-  yield 1
-  yield 2
-  yield 3
-  return 4
-}
-
-var a = async function name() {
-  let res = await Await(genF)
-  console.log(res);
-
-}
-a()
-```

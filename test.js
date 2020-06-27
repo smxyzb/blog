@@ -60,20 +60,19 @@ console.log(it.next());
 console.log(it.next());
 
 
-var p1 = new Promise((resolve, reject) => {
-  reject(1)
-})
-var p2 = new Promise((resolve, reject) => {
-  reject(2)
-})
+var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
 
-var p3 = new Promise((resolve, reject) => {
-  resolve(3)
-})
+// console.log(flatMap(arr));
 
 
-var p = Promise.race([p1, p2, p3])
-setTimeout(() => {
-  console.log(p);
 
-}, 0);
+
+
+function flatArr(arr) {
+  while (arr.some(item => Array.isArray(item))) {
+    arr = [].concat(...arr)
+  }
+  return arr
+}
+
+console.log(flatArr(arr));

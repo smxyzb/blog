@@ -65,14 +65,30 @@ var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
 // console.log(flatMap(arr));
 
 
-
-
-
-function flatArr(arr) {
-  while (arr.some(item => Array.isArray(item))) {
-    arr = [].concat(...arr)
-  }
-  return arr
+function New(f) {
+  var obj = {}
+  obj.__proto__ = f.prototype
+  var agrs = arguments.unshift()
+  var ret = f.apply(obj, agrs)
+  return ret instanceof Object ? ret : obj
 }
 
-console.log(flatArr(arr));
+
+const obj = {
+  a: 1,
+  b: 33
+}
+for (const key in obj) {
+  Object.defineProperty(obj, key, {
+    configurable: false,
+    enumerable: true,
+    set(val) {
+      console.log(val);
+
+      return obj[key]
+    }
+  })
+}
+
+obj.b = 22
+console.log(obj);

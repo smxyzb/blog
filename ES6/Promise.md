@@ -54,3 +54,22 @@ const f = () => console.log('now');
 Promise.try(f);
 console.log('next');
 ```
+
+## Promise 执行流程
+
+### Promise 会立即执行，并且是同步的，但这并不包括 resolve 和 reject，在状态变更之前会优先执行其他任务，最后在执行 resolve 和 reject
+
+```
+new Promise((resolve,reject) => {
+    resolve(1);
+    // reject(1);
+    Promise.resolve().then(() => console.log(2));
+    Promise.resolve().then(() => console.log(5));
+    console.log(3)
+}).then(t => console.log(t));
+// 输出 3 2 5 1
+```
+
+#### 可以看出不管是 resolve 或者 reject 总是在其他任务之后执行
+
+### then 的执行时异步的，then 会以微任务的形式进入微任务队列，等待执行

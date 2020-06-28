@@ -38,6 +38,14 @@ b[0] = 'test';
 console.log(); // ['test']
 ```
 
+### 如何定义一个不能修改的对象
+
+#### Object.freeze() 冻结对象
+
+#### Object.seal() 密封对象
+
+#### Object.preventExtensions() 阻止对象扩展
+
 ## 实现
 
 ```
@@ -210,12 +218,8 @@ objToMap({'name': 'An', 'des': 'JS'}) // Map {"name" => "An", "des" => "JS"}
 
 ### ES6 规定，WeakMap 不能遍历
 
-
-
 # es6 数组新方法有哪些，reduce 的用法
 
 ## from，of，copyWithin，fill，entries, keys, values, includes, find ，findIndex，filter，reduce,flat,flatMap
 
 # ex6 Proxy 与 Reflect 的关系
-
-

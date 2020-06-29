@@ -1,8 +1,6 @@
-#### 先留个问题，等 react 熟悉后再来作答：react 与 vue 有什么区别
+# 踩坑： className(替换 class) 、htmlFor(替换 label 标签的 for 属性)
 
-#### 踩坑： className(替换class) 、htmlFor(替换label标签的for属性)
-
-#### react 中如何给一个列表渲染的每个列进行事件绑定
+# react 中如何给一个列表渲染的每个列进行事件绑定
 
     该问题来自阿里云的前端面试，当时对react 不熟悉，直接说在每个list 上绑定onclick 事件。然而事实上并不是这样。
     react 中已经对所有事件进行了事件委托处理，onClick 的方式并不是直接绑定到每一个dom上，而是进行事件委托，如下代码
@@ -26,7 +24,7 @@
     }
     ```
 
-#### react 中的响应式设计思想和事件绑定
+# react 中的响应式设计思想和事件绑定
 
 ## 数据传递，方法传递
 
@@ -63,37 +61,35 @@ setState({},callBackFunction);
 
 ### 当父组件的 render 函数被运行时，他的子组件的 render 都将被重新运行
 
-## react 中的虚拟 DOM
+### react 中的虚拟 DOM
 
 diff 算法，同层比对
 
-## react 生命周期函数
-
-在某个时刻组件会自动调用执行的函数
+## react 生命周期函数：在某个时刻组件会自动调用执行的函数
 
 ### initialization: constructor setup props and state
 
 ### mounting 组件挂载的时候
 
-componentWillMount :在组件即将被挂载到页面的时刻自动执行 ；
+-   componentWillMount :在组件即将被挂载到页面的时刻自动执行 ；
 
-componentDidMount :在组件被挂载到页面后的时刻，建议将 ajax 请求放在这里面；
+-   componentDidMount :在组件被挂载到页面后的时刻，建议将 ajax 请求放在这里面；
 
 ### updating 组件更新的时候
 
-componentWillReceiveProps : 两个条件：a、一个组件要从父组件接受参数，第一次存在于父组件中，不会执行； b、组件之前已经存在与父组件中，才会被执行
+-   componentWillReceiveProps : 两个条件：a、一个组件要从父组件接受参数，第一次存在于父组件中，不会执行； b、组件之前已经存在与父组件中，才会被执行
 
-shouldComponentUpdate(nextProps,nextState) : 返回布尔值 nextProps 为接下来要变成的 props ，可以使用它跟当前组件的 props 对比确定是否更新组件，提升性能
+-   shouldComponentUpdate(nextProps,nextState) : 返回布尔值 nextProps 为接下来要变成的 props ，可以使用它跟当前组件的 props 对比确定是否更新组件，提升性能
 
-componentWillUpdate ：在 shouldComponentUpdate 之后执行，如果 shouldComponentUpdate 返回 true 才会执行，否则不会执行
+-   componentWillUpdate ：在 shouldComponentUpdate 之后执行，如果 shouldComponentUpdate 返回 true 才会执行，否则不会执行
 
-render：
+-   render：
 
-componentDidUpdate：在组件更新完成后执行
+-   componentDidUpdate：在组件更新完成后执行
 
 ### Unmounting
 
-componentWillUnmount: 子组件将要从父组件移除的时候会被执行
+-   componentWillUnmount: 子组件将要从父组件移除的时候会被执行
 
 ## react 的 CSS 过度动画
 
@@ -151,13 +147,18 @@ componentWillUnmount: 子组件将要从父组件移除的时候会被执行
     		return { type: REMOVE_GUN }
     	}
     	```
+
+# react 哪些可以触发 render
+
+# react 是如何处理异步的
+
 ## 组件分类
-### UI组件 ，只负责UI渲染的组件
-### 无状态组件：当一个组件只有一个render 的时候，完全可以使用无状态组件来替代它，一个函数接收一个参数，返回一个组件
 
-####redux-thunk中间件的使用
+## UI 组件 ，只负责 UI 渲染的组件
 
+## 无状态组件：当一个组件只有一个 render 的时候，完全可以使用无状态组件来替代它，一个函数接收一个参数，返回一个组件
 
+# redux-thunk 中间件的使用
 
 ## antd 实现按需加载样式配置，未配置会出现 budle 非常大加载缓慢
 
@@ -326,21 +327,23 @@ const numSelector = createSelector( state => state, //第二个参数是第一�
 
 1、数据流向 <img src='https://github.com/smxyzb/blog/blob/master/img/1205240-ff6493dbae42e16d.png'>
 
+## ref ：其实就是 ReactDOM.render()返回的组件实例，渲染 dom 元素时，返回是具体的 dom 节点
 
-## ref ：其实就是ReactDOM.render()返回的组件实例，渲染dom元素时，返回是具体的dom节点
-### ref可以挂载到组件上也可以是dom元素上
-### ref属性可以设置为一个回调函数
+## ref 可以挂载到组件上也可以是 dom 元素上
+
+## ref 属性可以设置为一个回调函数
+
 ```
 <ul ref={ul=>this.ul = ul}>
 ```
 
 ## 生命周期
 
-### componentsWillReciveProps: 与 Vue 的 activated 类似
-1、组件第一次存在于dom 中是不会只想的
-2、已经存在dom中才会被执行
+## componentsWillReciveProps: 与 Vue 的 activated 类似
 
-### shouldComponentUpdate(nextProps,nextState) ：提升应用性能
+1、组件第一次存在于 dom 中是不会只想的 2、已经存在 dom 中才会被执行
+
+## shouldComponentUpdate(nextProps,nextState) ：提升应用性能
 
 ```
 shouldComponentUpdate(nextProps,nextState){
@@ -352,8 +355,9 @@ shouldComponentUpdate(nextProps,nextState){
 ```
 
 ## 函数式编程
-### 代码清晰：每个函数代表一个功能,功能单一
-### 更容易实现前端的自动化测试
-### 纯函数：如果函数的调用参数相同，则永远返回相同的结果。它不依赖于程序执行期间函数外部任何状态或数据的变化，必须只依赖于其输入参数
 
+## 代码清晰：每个函数代表一个功能,功能单一
 
+## 更容易实现前端的自动化测试
+
+## 纯函数：如果函数的调用参数相同，则永远返回相同的结果。它不依赖于程序执行期间函数外部任何状态或数据的变化，必须只依赖于其输入参数

@@ -19,6 +19,28 @@
 
 ## webpack 优化
 
+### cache（缓存）
+
+#### babel 缓存 cacheDirectory
+
+```
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: [],
+          // 开启 babel 缓存
+          // 第二次构建时，会读取之前的缓存
+          cacheDirectory: true
+        }
+      }
+    ]
+```
+
+#### 文件资源缓存：hash ，chunkhash(根据春款生成 hash)， contenthash(根据内容生成 hash)
+
 ### alias 别名路径
 
 ```
@@ -30,7 +52,21 @@ resolve: {
   }
 ```
 
-### 自带优化 treeshaking 默认只在生成环境下生效，并且只支持 es6 import 语法
+### 自带优化 tree-shaking 默认只在生成环境下生效，并且只支持 es6 import 语法
+
+#### 原理：基于 es6 module 的几个特性
+
+-   只能作为模块顶层的语句出现
+
+-   import 的模块名只能是字符串常量
+
+-   import binding 是 immutable（一成不变）的
+
+<strong>基于以上三个特点，ES6 模块依赖关系是确定的，和运行时的状态无关，可以进行可靠的静态分析，这就是 tree-shaking 的基础。就可以在不执行代码的情况下，对代码进行静态分析。静态分析就是不执行代码，从字面量上对代码进行分析，找到使用或者未使用的模块，属性方法等。</strong>
+
+-   这些工作就是由代码压缩优化工具 uglify 来完成的
+
+<strong>但是：tree-shaking 不能对类进行消除，因为类内部可能会对一些通用方法属性的改写，一旦消除，就没法执行，这样在其他地方使用的时候就会出现问题</strong>
 
 ### module ：noParse ，不通过 webpack 解析某些模块
 

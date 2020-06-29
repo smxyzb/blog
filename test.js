@@ -73,22 +73,19 @@ function New(f) {
   return ret instanceof Object ? ret : obj
 }
 
+var o = {}
+function instance_of(obj, source) {
+  let L = obj.__proto__
+  let O = source.prototype
+  while (L !== null) {
+    return L === O
+  }
 
-const obj = {
-  a: 1,
-  b: 33
-}
-for (const key in obj) {
-  Object.defineProperty(obj, key, {
-    configurable: false,
-    enumerable: true,
-    set(val) {
-      console.log(val);
+  L = L.__proto__
 
-      return obj[key]
-    }
-  })
 }
 
-obj.b = 22
-console.log(obj);
+
+console.log(instance_of(o, Object));
+console.log(Array.isArray(new Set()));
+console.log(typeof []);

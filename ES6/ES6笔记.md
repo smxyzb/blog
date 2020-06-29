@@ -2,6 +2,18 @@
 
 ## 为什么不能重复定义（某公司的问题）：因为 es6 标准就是这么规定的
 
+## 定义的变量名称不会挂载到全局对象 window 上
+
+<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-global-environment-records">ECMA sec-global-environment-records 8.1.1 Environment Records</a> 
+
+### ECMA 规范中使用两种主要的环境记录值：声明性环境记录和对象环境记录。
+
+#### 对象环境记录用于定义 ECMAScript 元素（例如 WithStatement）的效果，这些元素将标识符绑定与某些对象的属性相关联。<strong>每个对象环境记录都与一个称为其绑定对象的对象相关联。对象环境记录绑定直接与其绑定对象的属性名称相对应的一组字符串标识符名称</strong>
+
+#### 声明性环境记录用于定义 ECMAScript 语言语法元素（例如 FunctionDeclarations，VariableDeclarations 和 Catch 子句）的效果，这些元素直接将标识符绑定与 ECMAScript 语言值相关联。<strong>每个声明性环境记录都与包含变量，常量，let，类，模块，导入和/或函数声明的 ECMAScript 程序范围相关联</strong>
+
+#### let/const 声明会放在 声明性环境记录 里面，而 var 的变量会通过 对象环境记录 来声明, 所以显而易见说明，let,const 声明的变量不在 window 对象
+
 ## 不可重复声明
 
     ```
@@ -38,14 +50,6 @@ b[0] = 'test';
 console.log(); // ['test']
 ```
 
-### 如何定义一个不能修改的对象
-
-#### Object.freeze() 冻结对象
-
-#### Object.seal() 密封对象
-
-#### Object.preventExtensions() 阻止对象扩展
-
 ## 实现
 
 ```
@@ -71,6 +75,14 @@ function constDeclar(e, v, data) {
 constDeclar('g',1)
 g = 3 // Identifier 'g' has already been declared
 ```
+
+## 如何定义一个不能修改的对象
+
+### Object.freeze() 冻结对象
+
+### Object.seal() 密封对象
+
+### Object.preventExtensions() 阻止对象扩展
 
 # 展开运算符的原理
 

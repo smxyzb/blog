@@ -43,21 +43,21 @@
 // }
 
 
-function Iter(arr) {
-  let index = 0
-  return {
-    next(val) {
-      return index < arr.length ? { done: false, value: arr[index++] } : {
-        done: true, value: undefined
-      }
-    }
-  }
-}
+// function Iter(arr) {
+//   let index = 0
+//   return {
+//     next(val) {
+//       return index < arr.length ? { done: false, value: arr[index++] } : {
+//         done: true, value: undefined
+//       }
+//     }
+//   }
+// }
 
-const it = Iter([1, 2])
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
+// const it = Iter([1, 2])
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
 
 
 var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
@@ -65,27 +65,39 @@ var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
 // console.log(flatMap(arr));
 
 
-function New(f) {
-  var obj = {}
-  obj.__proto__ = f.prototype
-  var agrs = arguments.unshift()
-  var ret = f.apply(obj, agrs)
-  return ret instanceof Object ? ret : obj
-}
-
-var o = {}
-function instance_of(obj, source) {
-  let L = obj.__proto__
-  let O = source.prototype
-  while (L !== null) {
-    return L === O
-  }
-
-  L = L.__proto__
-
-}
+// function New(f) {
+//   var obj = {}
+//   obj.__proto__ = f.prototype
+//   var agrs = arguments.unshift()
+//   var ret = f.apply(obj, agrs)
+//   return ret instanceof Object ? ret : obj
+// }
 
 
-console.log(instance_of(o, Object));
-console.log(Array.isArray(new Set()));
-console.log(typeof []);
+// var o = {}
+// function instance_of(obj, source) {
+//   let L = obj.__proto__
+//   let O = source.prototype
+//   while (L !== null) {
+//     return L === O
+//   }
+
+//   L = L.__proto__
+
+// }
+
+
+// console.log(instance_of(o, Object));
+// console.log(Array.isArray(new Set()));
+// console.log(typeof []);
+
+
+// 情况1
+// module.exports = { a: 1 }
+// exports.b = 2;
+// { a:1 }
+
+// 情况2
+exports.b = 2;
+module.exports.a = 1;
+// { a:1, b:2 }

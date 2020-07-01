@@ -43,12 +43,23 @@
                 transform: translateX(-50%) translateY(-50%);
                 background: yellow;
             }
+
+            .progress{
+              height: 10px;
+              width:100%;
+              border-radius:5px;
+              border:1px solid #333;
+              background-image:linear-gradient(#0ff,#0ff);
+              background-repeat: no-repeat;
+              background-size: calc(var(--percent) * 1%);
+            }
         </style>
     </head>
 
     <body>
     <header>
         <h2>Web APIs<h2>
+          <div class="progress" --pro="50"></div>
     </header>
     <div class="web-api-cnt">
         <div class="web-api-card">

@@ -6,9 +6,9 @@ Mvvm 定义 MVVM 是 Model-View-ViewModel 的简写。即模型-视图-视图模
 
 1、computed 是计算属性值，watch 是监听属性变化对数据的观察行为;
 
-2、用法不同：computed 属性不能定义在 data 里面，并且有 get 和 set 方法，能够进行数据劫持。watch 的属性需要提前定义在 data 里面，普通监听只能监听简单数据，复杂数据需要使用深度监听 deep 配合 handler 方法，watch 要监听单个属性变化也可以通过 computed 昨晚中间转化 ;
+2、用法不同：computed 属性不能定义在 data 里面，并且有 get 和 set 方法，能够进行数据劫持。watch 的属性需要提前定义在 data 里面，普通监听只能监听简单数据，复杂数据需要使用深度监听 deep 配合 handler 方法，watch 要监听单个属性变化也可以通过 computed 作为中间转化 ;
 
-3、computed 具有缓存性，页面重新渲染值不变化，计算属性会理解返回之前的结果，无需再次计算。watch 无缓存线，页面重新渲染是值不变化也会执行 ;
+3、computed 具有缓存性，页面重新渲染值不变化，计算属性会立即返回之前的结果，无需再次计算。watch 无缓存性，页面重新渲染是值不变化也会执行 ;
 
 4、原理：两者都有一个 watcher 生成，不同的是 computed 的函数方法会被当做计算属性的 getter 调用
 

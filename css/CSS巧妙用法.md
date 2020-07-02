@@ -112,3 +112,21 @@ animation:move 2s steps(10) infinite;
 ```
 
 -   17、resize：auto ，使普通元素可以 resize 大小
+
+-   18、单行居中，多好靠左 em 标签
+
+```
+.box {
+    text-align: center;
+}
+.box em {
+    display: inline-block;
+    text-align: left;
+}
+
+<div class="box">
+    <em>
+        反对第三方第三方发送到发大水发生的说法范德萨发发发送到
+    </em>
+</div>
+```

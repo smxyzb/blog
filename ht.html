@@ -1,113 +1,111 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>JS Bin</title>
         <style>
-            .wrap {
-                width: 200px;
-                border: 1px solid #333;
+            .box {
+                text-align: center;
             }
-            .wrap:after {
-                content: '';
-                display: block;
-                clear: both;
+            .box em {
+                display: inline-block;
+                text-align: left;
             }
-            .left {
-                float: left;
-                background: blue;
-                height: 100px;
-                width: 100px;
-            }
-            .right {
-                float: left;
-                background: red;
-                height: 50px;
-                width: 100px;
-            }
-            .center {
-                height: 100px;
-                width: 100px;
-                position: absolute;
-                left: 0;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                margin: auto;
-                background: green;
-            }
-            .center2 {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                margin: 0;
-                transform: translateX(-50%) translateY(-50%);
-                background: yellow;
-            }
-
-            .progress{
-              height: 10px;
-              width:100%;
-              border-radius:5px;
-              border:1px solid #333;
-              background-image:linear-gradient(#0ff,#0ff);
-              background-repeat: no-repeat;
-              background-size: calc(var(--percent) * 1%);
+            .box span {
+                /* overflow: hidden; */
             }
         </style>
     </head>
-
     <body>
-    <header>
-        <h2>Web APIs<h2>
-          <div class="progress" --pro="50"></div>
-    </header>
-    <div class="web-api-cnt">
-        <div class="web-api-card">
-            <div class="web-api-card-head"> Demo - MessageChannel </div>
-            <div class="web-api-card-body">
-                <div id="error" class="close"></div>
-                <div id="displayMsg">
-                </div>
-                <div>
-                    <input id="input" type="text" placeholder="Send message to iframe" />
-                </div>
-                <div>
-                    <button onclick="sendMsg()">Send Msg</button>
-                </div>
-                <div>
-                    <iframe id="iframe" src="./content.html"></iframe>
-                </div>
-            </div>
+        <div id="test">
+            <!-- {{propName}} vue.js称之为“文本插值”，angular里叫“插值表达式”，英文都是 interpolation，修改、差值。-->
+            <p>{{msg}}</p>
+            <p>{{msg}}</p>
+            <p>{{msg}}</p>
+            <p>{{what}}</p>
+            <p>{{hey}}</p>
         </div>
-    </div>
-</body>
-<script>
-    try {
-        var channel = new MessageChannel()
-        var port1 = channel.port1
-    } catch (e) {
-        error.innerHTML = "MessageChannel API not supported in this device."
-        error.classList.remove("close")
-    }
+        <div>
+            <button type="buttone" onclick="updateData()">
+                更新数据（data.msg）
+            </button>
+        </div>
+        <script>
+            // 1. 声明绑定标记（即后来的“指令”，例如v-bind:title="message"）
+            var bindingMark = 'data-element-binding';
+            function Element(id, initData) {
+                var self = this,
+                    // 2. 记录下根元素，div#test
+                    el = (self.el = document.getElementById(id));
+                bindings = {}; // the internal copy，数据内部拷贝及绑定目标的保存
+                data = self.data = {}; // the external interface，外部数据接口
+                // 2. 记录下要替换渲染的变量名标记
+                content = el.innerHTML.replace(/\{\{(.*)\}\}/g, markToken);
 
-    iframe.addEventListener("load", onLoad)
+                // 4. 把bindingMark，'data-element-binding'属性（指令）替换了文本插值后的字符串
+                // 替换成根元素的html内容
+                // 至此：{{mustache}} => v-bindingMark
+                el.innerHTML = content;
 
-    function onLoad() {
-        port1.onmessage = onMessage
-        iframe.contentWindow.postMessage("load", '*', [channel.port2])
-    }
+                for (var variable in bindings) {
+                    // 5. 给html中带有bindingMark属性（指令）的元素创建数据绑定
+                    bind(variable);
+                }
 
-    function onMessage(e) {
-        const newHTML = "<div>" + e.data + "</div>"
-        displayMsg.innerHTML = displayMsg.innerHTML + newHTML
-    }
+                if (initData) {
+                    // 8. 根据一开始声明实例时的data，初始化一次html，
+                    // 后续数据更新后，将继续使用set属性，更新渲染html
+                    // 至此：v-bindingMark => <p>data.msg</p>
+                    for (var variable in initData) {
+                        data[variable] = initData[variable];
+                    }
+                }
 
-    function sendMsg() {
-        port1.postMessage(input.value)
-    }
+                function markToken(match, variable) {
+                    bindings[variable] = {};
+                    // 3. 给每个有文本插值的元素，用bindingMark作为html属性标记（指令）替换掉
+                    // 文本插值标记
+                    // 便于用 querySelectorAll 获取和保存元素的引用到bindings。
+                    return (
+                        '<span ' + bindingMark + '="' + variable + '"></span>'
+                    );
+                }
 
-    
+                function bind(variable) {
+                    // 6. 记录下需要重新渲染的html元素的引用，并移除用于标记这些元素的属性（指令）
+                    bindings[variable].els = el.querySelectorAll(
+                        '[' + bindingMark + '="' + variable + '"]'
+                    );
+                    [].forEach.call(bindings[variable].els, function (e) {
+                        e.removeAttribute(bindingMark);
+                    });
+                    // 7. 定义绑定的“get和set属性”，用于后续数据更新时，驱动重新渲染更新html模版
+                    Object.defineProperty(data, variable, {
+                        set: function (newVal) {
+                            [].forEach.call(bindings[variable].els, function (
+                                e
+                            ) {
+                                bindings[
+                                    variable
+                                ].value = e.textContent = newVal;
+                            });
+                        },
+                        get: function () {
+                            return bindings[variable].value;
+                        },
+                    });
+                }
+            }
 
-</script>
+            // 1. 创建Element实例，即后来的Vue实例
+            var app = new Element('test', {
+                msg: 'hello',
+            });
 
+            function updateData() {
+                window.app.data.msg = 'Hello,JuniorTour';
+            }
+        </script>
+    </body>
 </html>

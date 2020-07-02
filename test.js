@@ -91,13 +91,5 @@ var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
 // console.log(Array.isArray(new Set()));
 // console.log(typeof []);
 
+console.log([1, 3, 5, 2, 8, 6, 54].sort());
 
-// 情况1
-// module.exports = { a: 1 }
-// exports.b = 2;
-// { a:1 }
-
-// 情况2
-exports.b = 2;
-module.exports.a = 1;
-// { a:1, b:2 }

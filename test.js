@@ -93,3 +93,14 @@ var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
 
 console.log([1, 3, 5, 2, 8, 6, 54].sort());
 
+var arr1 = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2']
+var arr2 = ['A', 'B', 'C', 'D']
+// console.log(arr1.concat(arr2).sort((a,b)=>{
+//   return a
+// }));
+var str = 'abcdefg'
+
+console.log(arr2.splice(1, 3, 5, 6, 7, 8));
+console.log(arr2);
+
+console.log(str.substring(1,3));

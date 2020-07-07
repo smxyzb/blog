@@ -144,10 +144,10 @@ updateChildren (parentElm, oldCh, newCh) {
 
 #### updateChildren 主要做了几件事情:
 
-1、将 Vnode 的子节点 VCh 和 oldVnode 的子节点 oldCh 提取出来  
-2、设置 VCH 和 oldCh 的 StartIndex 和 EndIndex，然后根据各自的 StartIn 得下和 EndIndex 取对应的子节点进行比较，进行总共 4 种比较。看是不是同一个节点  
-3、如果 4 种比较都没匹配的情况下，如果设置了 key，则会使用 key 进行比较，通过 oldKeyToIdx 利用 key 创建一个映射关系，使用 key 查找节点进行比较  
-4、整个比较过程中 StartIndex 和 EndIndex 会往中间靠（StartIndex 增，EndIndex 减），当出现 StartIndex > EndIndex 的时候，就说嘛 vCH 和 oldCh 至少有一个已经比那里玩了，就会结束比较  
-5、oldVnode 遍历完，有可能 Vnode 没完，得把当前新的节点添加进去;Vnode 遍历完，说明新节点在原来基础上有删减，则移除当前遍历到的旧节点
+-   1、将 Vnode 的子节点 VCh 和 oldVnode 的子节点 oldCh 提取出来
+-   2、设置 VCH 和 oldCh 的 StartIndex 和 EndIndex，然后根据各自的 StartIn 得下和 EndIndex 取对应的子节点进行比较，进行总共 4 种比较。看是不是同一个节点
+-   3、如果 4 种比较都没匹配的情况下，如果设置了 key，则会使用 key 进行比较，通过 oldKeyToIdx 利用 key 创建一个映射关系，使用 key 查找节点进行比较
+-   4、整个比较过程中 StartIndex 和 EndIndex 会往中间靠（StartIndex 增，EndIndex 减），当出现 StartIndex > EndIndex 的时候，就说明 vCH 和 oldCh 至少有一个已经比较玩了，就会结束比较
+-   5、oldVnode 先完成比较(oldStartIdx > oldEndIdx)，说明有新 Vnode 没完，把当前新的节点添加进去;Vnode 先完成比较(newStartIdx > newEndIdx)，说明新节点在原来基础上有删减，则移除当前遍历到的旧节点
 
 ### 不是同一节点则先取到父节点，创建新节点并插入父节点中，移除以前的节点

@@ -2,7 +2,19 @@
 
 ## git 工作流程
 
-## git reset ,git reverse，git rebase
+## rebase 和 merge
+
+### 都是合并代码
+
+### merge 会保留所有的历史 commit 记录
+
+### rebase 会对之前定的 commit 进行裁剪合并，生成一个新的 commit，产生一个更清晰的提交历史记录
+
+## reset , reverse，
+
+### reset 是直接修改 HEAD 版本位置，指向固定的版本,后面的八版本将不存在
+
+### revert 是用于“反做”某一个版本，以达到撤销该版本的修改的目的。他后面的版本会被保留，并且会生成一个新的版本
 
 ## git fetch 与 git pull 的区别
 

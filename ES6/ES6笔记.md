@@ -4,7 +4,7 @@
 
 ## 定义的变量名称不会挂载到全局对象 window 上
 
-<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-global-environment-records">ECMA sec-global-environment-records 8.1.1 Environment Records</a> 
+<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-global-environment-records">ECMA sec-global-environment-records 8.1.1 Environment Records</a>
 
 ### ECMA 规范中使用两种主要的环境记录值：声明性环境记录和对象环境记录。
 
@@ -76,7 +76,7 @@ constDeclar('g',1)
 g = 3 // Identifier 'g' has already been declared
 ```
 
-## 如何定义一个不能修改的对象
+## 如何定义一个不能修改的对象（const 为啥能修改引用类型的数据，怎么样不能修改）
 
 ### Object.freeze() 冻结对象
 

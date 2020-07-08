@@ -10,7 +10,7 @@
 
 ### rebase 会对之前定的 commit 进行裁剪合并，生成一个新的 commit，产生一个更清晰的提交历史记录
 
-## reset , reverse，
+## reset , revert
 
 ### reset 是直接修改 HEAD 版本位置，指向固定的版本,后面的八版本将不存在
 

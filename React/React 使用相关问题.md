@@ -195,7 +195,7 @@ store.dispatch,
 store.getState,  
 store.subscribe
 
-reducer ：是一个纯函数，给定古董的输入，就一定会有固定的输出，而且不会有任何副作用
+reducer ：是一个纯函数，给定固定的输入，就一定会有固定的输出，而且不会有任何副作用
 
 1、store 是唯一的  
 2、只有 store 才能改变自己的数据

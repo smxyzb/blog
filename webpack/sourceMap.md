@@ -7,3 +7,5 @@
 ## inline-cheap-source-map：cheap 的作用一是只定位到行，不定位到列；二是映射业务代码，不映射 loader 和第三方库，可提升打包构建速度
 
 ## inline-cheap-module-source-map：module 会映射 loader 和第三方库
+
+## eval：用 eval 生成的映射关系,效率和性能最佳，但是当代码复杂的时候，提示信息可能会不准确

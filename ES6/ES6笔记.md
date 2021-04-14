@@ -234,4 +234,38 @@ objToMap({'name': 'An', 'des': 'JS'}) // Map {"name" => "An", "des" => "JS"}
 
 ## from，of，copyWithin，fill，entries, keys, values, includes, find ，findIndex，filter，reduce,flat,flatMap
 
-# ex6 Proxy 与 Reflect 的关系
+# ES6 Proxy 与 Reflect 的关系
+
+## Reflect对象可以将其变为函数式的行为
+```
+//旧写法
+try{
+   Object.defineProperty(target,name,property);
+
+}catch(e){
+   console.log("error");
+}
+
+//Reflect对象操作
+if（Reflect(target,name,property)）{
+     console.log("success");
+}else{
+    console.log("error")
+}
+
+```
+## Reflect对象的操作和Proxy对象的操作是一一对应的, 在Proxy的拦截操作中，可以直接利用Reflect对象直接获取Proxy的默认值
+
+``` 
+let target = {
+  name:"小明",
+  age:15
+}
+let handler = {
+  get:function(target,name,property){
+      return Reflect.get(target,name,property);
+  }
+}
+let pro = new Proxy(target,handler);
+console.log(pro.name)
+```

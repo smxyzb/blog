@@ -39,7 +39,7 @@
     ]
 ```
 
-#### 文件资源缓存：hash ，chunkhash(根据春款生成 hash)， contenthash(根据内容生成 hash)
+#### 文件资源缓存：hash ，chunkhash(根据chunk生成 hash)， contenthash(根据内容生成 hash)
 
 ### alias 别名路径
 

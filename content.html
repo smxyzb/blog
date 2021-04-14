@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <div class="web-api-cnt">
-            <div class="web-api-card">
-                <div class="web-api-card-head">
-                    Running inside an <i>iframe</i>
-                </div>
-                <div class="web-api-card-body">
-                    <div id="iframeDisplayMsg"></div>
-                    <div>
-                        <input placeholder="Type message.." id="iframeInput" />
-                    </div>
 
-                    <div>
-                        <button onclick="sendMsgiframe()">
-                            Send Msg from <i>iframe</i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 50%;
+        padding: 25% 0;
+        background: red;
+      }
 
-    <script>
-        var port2;
-        window.addEventListener('message', function (e) {
-            console.log(e);
+      .box2 {
+        width: 50%;
+        padding-bottom: 50%;
+        background: yellow;
+      }
+    </style>
+  </head>
 
-            port2 = e.ports[0];
-            port2.onmessage = onMessage;
-        });
+  <body>
 
-        function onMessage(e) {
-            const newHTML = '<div>' + e.data + '</div>';
-            iframeDisplayMsg.innerHTML = iframeDisplayMsg.innerHTML + newHTML;
-        }
+    <button class="box2" onclick="debounce(3434)">
+      点击
+    </button>
+    <button class="box2" onclick="throuttle(3434)">
+      点击 22
+    </button>
+  </body>
 
-        function sendMsgiframe() {
-            port2.postMessage(iframeInput.value);
-        }
-    </script>
+  <script>
+    function New(fn) {
+      var type = Object.prototype.toString.call(fn)
+      console.log(type);
+      if (type !== "[object Function]") {
+        throw 'fn 必须是函数'
+      }
+      var newObj = {}
+      newObj.__proto__ = fn.prototype
+      var args = Array.prototype.splice.apply(arguments)
+      console.log(args);
+      var result = fn.apply(newObj, args)
+      return result instanceof Object ? result : newObj
+
+    }
+
+    var f = function name(params) {
+      this.hello = function (params) {
+        console.log('hello');
+      }
+    }
+
+    var d = New(f, 222)
+    console.log(d);
+
+  </script>
+
 </html>

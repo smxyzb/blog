@@ -29,7 +29,7 @@
 "test": "./node_modules/.bin/test"
 ```
 
--   如果安装的某个模块配置；额 bin 熟悉，则会在安装时软连接到 node_modules/.bin 下面
+-   如果安装的某个模块配置，则会在安装时软连接到 node_modules/.bin 下面
 
 ### 默认脚本 start 和 install：npm 本身对两个脚本提供了默认值，这两个脚本不用在 script 属性中定义，可以直接使用
 

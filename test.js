@@ -210,29 +210,29 @@ function flatArr(list = [], defatltArr = [], keys = ['id', 'title']) {
 // flatArr(data)
 
 
-  const debounce = function (fn, wait = 1000, immedidate) {
-    let timer = null
-    return function () {
-      const ctx = this
-      const args = arguments
-      if (timer) {
-        clearTimeout(timer)
-      }
-      if (immedidate) {
-        let runNow = !timer
-        timer = setTimeout(() => {
-          timer = null
-        }, wait)
-        if (runNow) fn.apply(ctx, args)
-      } else {
+const debounce = function (fn, wait = 1000, immedidate) {
+  let timer = null
+  return function () {
+    const ctx = this
+    const args = arguments
+    if (timer) {
+      clearTimeout(timer)
+    }
+    if (immedidate) {
+      let runNow = !timer
+      timer = setTimeout(() => {
+        timer = null
+      }, wait)
+      if (runNow) fn.apply(ctx, args)
+    } else {
 
-        timer = setTimeout(() => {
-          fn.apply(ctx, args)
-        }, wait)
-      }
+      timer = setTimeout(() => {
+        fn.apply(ctx, args)
+      }, wait)
     }
   }
+}
 
-let dt = debounce(flatArr, 1000, false)
+// let dt = debounce(flatArr, 1000, false)
 
-console.log(dt(data, []));
+// console.log(dt(data, []));

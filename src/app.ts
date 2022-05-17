@@ -1,8 +1,14 @@
-type Fish = {swim:()=>void,name:'fish'}
-type Bird = {fly:()=>void,name:'bird'}
-
-function isFish(pet:Fish|Bird): pet is Fish {
-  return (pet as Fish).swim !== undefined
+function firstEle<Type>(arr:Type[]):Type |undefined{
+  return arr[0]
+  // return 100 // 不能将类型“number”分配给类型“Type”
 }
 
-isFish({swim:()=>{},name:'fish'})
+firstEle([1,2,3])
+firstEle(['1','2','3'])
+
+function map<Input,Output>(arr:Input[],func:(arg:Input)=>Output):Output[] {
+  return arr.map(func)
+}
+
+var s = map(['1','2','3'],(n)=>parseInt(n))
+console.log(s);

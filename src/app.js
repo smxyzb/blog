@@ -1,22 +1,12 @@
 "use strict";
-var Direction;
-(function (Direction) {
-    Direction[Direction["UP"] = 1] = "UP";
-    Direction[Direction["DOWN2"] = 2] = "DOWN2";
-    Direction[Direction["RIGHT"] = 3] = "RIGHT";
-    Direction[Direction["LEFT"] = 4] = "LEFT";
-})(Direction || (Direction = {}));
-console.log(Direction.UP);
-const a = BigInt(100);
-const b = Symbol('222');
-function test(x, y) {
-    if (x === y) {
-        x.toUpperCase();
-        y.toUpperCase();
-    }
+function firstEle(arr) {
+    return arr[0];
+    // return 100 // 不能将类型“number”分配给类型“Type”
 }
-function move(animal) {
-    if ('swim' in animal) {
-        animal.swim();
-    }
+firstEle([1, 2, 3]);
+firstEle(['1', '2', '3']);
+function map(arr, func) {
+    return arr.map(func);
 }
+var s = map(['1', '2', '3'], (n) => parseInt(n));
+console.log(s);

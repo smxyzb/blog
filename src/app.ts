@@ -1,14 +1,23 @@
-function firstEle<Type>(arr:Type[]):Type |undefined{
-  return arr[0]
-  // return 100 // 不能将类型“number”分配给类型“Type”
+interface User{
+  admin:boolean
 }
 
-firstEle([1,2,3])
-firstEle(['1','2','3'])
-
-function map<Input,Output>(arr:Input[],func:(arg:Input)=>Output):Output[] {
-  return arr.map(func)
+interface DB {
+  filterUser(filter:(this:User)=> boolean):User[]
 }
 
-var s = map(['1','2','3'],(n)=>parseInt(n))
-console.log(s);
+
+const db:DB = {
+  filterUser:(filter:(this:User)=>boolean)=>{
+    // console.log(filter());
+    
+    const arr = [{admin:false,},{admin:true}]
+    return arr
+  }
+}
+
+const admins = db.filterUser(function(this:User){
+  console.log(this);
+  return this.admin
+})
+console.log(admins);

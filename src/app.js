@@ -1,12 +1,13 @@
 "use strict";
-function firstEle(arr) {
-    return arr[0];
-    // return 100 // 不能将类型“number”分配给类型“Type”
-}
-firstEle([1, 2, 3]);
-firstEle(['1', '2', '3']);
-function map(arr, func) {
-    return arr.map(func);
-}
-var s = map(['1', '2', '3'], (n) => parseInt(n));
-console.log(s);
+const db = {
+    filterUser: (filter) => {
+        console.log(filter());
+        const arr = [{ admin: false, }, { admin: true }];
+        return arr;
+    }
+};
+const admins = db.filterUser(function () {
+    console.log(this);
+    return this.admin;
+});
+console.log(admins);

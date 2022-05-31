@@ -1,112 +1,111 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>JS Bin</title>
-        <style>
-            .box {
-                text-align: center;
-            }
-            .box em {
-                display: inline-block;
-                text-align: left;
-            }
-            .box span {
-                /* overflow: hidden; */
-            }
-        </style>
-    </head>
-    <body>
-      
-        <div id="test">
-            <!-- {{propName}} vue.js称之为“文本插值”，angular里叫“插值表达式”，英文都是 interpolation，修改、差值。-->
-            <p>{{msg}}</p>
-            <p>{{msg}}</p>
-            <p>{{msg}}</p>
-            <p>{{what}}</p>
-            <p>{{hey}}</p>
-        </div>
-        <div>
-            <button type="buttone" onclick="updateData()">
-                更新数据（data.msg）
-            </button>
-        </div>
-        <script>
-            // 1. 声明绑定标记（即后来的“指令”，例如v-bind:title="message"）
-            var bindingMark = 'data-element-binding';
-            function Element(id, initData) {
-                var self = this,
-                    // 2. 记录下根元素，div#test
-                    el = (self.el = document.getElementById(id));
-                bindings = {}; // the internal copy，数据内部拷贝及绑定目标的保存
-                data = self.data = {}; // the external interface，外部数据接口
-                // 2. 记录下要替换渲染的变量名标记
-                content = el.innerHTML.replace(/\{\{(.*)\}\}/g, markToken);
 
-                // 4. 把bindingMark，'data-element-binding'属性（指令）替换了文本插值后的字符串
-                // 替换成根元素的html内容
-                // 至此：{{mustache}} => v-bindingMark
-                el.innerHTML = content;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+    <style>
+      .box {
+        text-align: center;
+      }
 
-                for (var variable in bindings) {
-                    // 5. 给html中带有bindingMark属性（指令）的元素创建数据绑定
-                    bind(variable);
-                }
+      .box em {
+        display: inline-block;
+        text-align: left;
+      }
 
-                if (initData) {
-                    // 8. 根据一开始声明实例时的data，初始化一次html，
-                    // 后续数据更新后，将继续使用set属性，更新渲染html
-                    // 至此：v-bindingMark => <p>data.msg</p>
-                    for (var variable in initData) {
-                        data[variable] = initData[variable];
-                    }
-                }
+      .box span {
+        /* overflow: hidden; */
+      }
+    </style>
+  </head>
 
-                function markToken(match, variable) {
-                    bindings[variable] = {};
-                    // 3. 给每个有文本插值的元素，用bindingMark作为html属性标记（指令）替换掉
-                    // 文本插值标记
-                    // 便于用 querySelectorAll 获取和保存元素的引用到bindings。
-                    return (
-                        '<span ' + bindingMark + '="' + variable + '"></span>'
-                    );
-                }
+  <body>
+    <div id="name"></div>
+    <div id="age"></div>
+    <div id="test"></div>
+    <button onclick="setData()">设置数据</button>
+    <button onclick="setData2()">设置数据2</button>
+    <script>
 
-                function bind(variable) {
-                    // 6. 记录下需要重新渲染的html元素的引用，并移除用于标记这些元素的属性（指令）
-                    bindings[variable].els = el.querySelectorAll(
-                        '[' + bindingMark + '="' + variable + '"]'
-                    );
-                    [].forEach.call(bindings[variable].els, function (e) {
-                        e.removeAttribute(bindingMark);
-                    });
-                    // 7. 定义绑定的“get和set属性”，用于后续数据更新时，驱动重新渲染更新html模版
-                    Object.defineProperty(data, variable, {
-                        set: function (newVal) {
-                            [].forEach.call(bindings[variable].els, function (
-                                e
-                            ) {
-                                bindings[
-                                    variable
-                                ].value = e.textContent = newVal;
-                            });
-                        },
-                        get: function () {
-                            return bindings[variable].value;
-                        },
-                    });
-                }
-            }
+      const ref = (value) => {
+        class Ref {
+          #_value
+          constructor(value) {
+            this.#_value = value
+          }
+          get value() {
+            track(this, 'value')
+            return this.#_value
+          }
+          set value(newValue) {
+            console.log(newValue);
+            this.#_value = newValue
+            trigger(this, 'value')
+          }
+        }
+        return new Ref(value)
+      }
 
-            // 1. 创建Element实例，即后来的Vue实例
-            var app = new Element('test', {
-                msg: 'hello',
-            });
+      const reactive = (target) => {
+        const handler = {
+          get(target, key, receiver) {
+            track(receiver, key)
+            const val = Reflect.get(target, key, receiver)
+            return val
+          },
+          set(target, key, value, receiver) {
+            Reflect.set(target, key, value, receiver)
+            trigger(receiver, key)
+          }
+        }
+        const obj = new Proxy(target, handler)
+        return obj
+      }
 
-            function updateData() {
-                window.app.data.msg = 'Hello,JuniorTour';
-            }
-        </script>
-    </body>
+      let person1 = reactive({ name: '', age: '' })
+
+      let person2 = ref(1)
+      console.log(person2);
+
+      const effect1 = () => document.getElementById('name').innerHTML = person1.name
+      const effect2 = () => document.getElementById('age').innerHTML = person1.age
+      const effect3 = () => document.getElementById('test').innerHTML = person2.value
+
+      let targetMap = new WeakMap()
+      const track = (target, key) => {
+        let depsMap = targetMap.get(target)
+        if (!depsMap) targetMap.set(target, (depsMap = new Map()))
+
+        let deps = depsMap.get(key)
+        if (!deps) depsMap.set(key, (deps = new Set()))
+        key === 'name' ? deps.add(effect1) : key === 'age' ? deps.add(effect2) : deps.add(effect3)
+
+      }
+      const trigger = (target, key) => {
+        let depsMap = targetMap.get(target)
+        console.log(targetMap);
+        if (depsMap) {
+          let deps = depsMap.get(key)
+          console.log(deps);
+          if (deps) deps.forEach((effect)=>{
+            effect()
+          })
+        }
+      }
+      effect1()
+      effect2()
+      effect3()
+
+      function setData(params) {
+        person1.name = 'HM'
+        person1.age = 233
+      }
+      function setData2(params) {
+        person2.value = 'HM'
+      }
+    </script>
+  </body>
+
 </html>

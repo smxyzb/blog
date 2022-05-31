@@ -5,7 +5,7 @@ node_modules
 /dist
 /output
 /public/vendor
-/electronapp/dist
+/core
 git.sh
 
 # local env files

@@ -169,6 +169,12 @@ let arr = new Set([...arr1,arr2])
 let arr = new Set([...arr1]).filter(val=> !arr2.has(val))
 
 ```
+### 如何构造一个指定内容的数组
+
+```
+new Array(3).fill(1)
+
+```
 
 ## WeakSet：一个弱引用类型的存储集合
 

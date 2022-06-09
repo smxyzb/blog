@@ -31,13 +31,16 @@ git log
 
 
 ### 交互式 git rebase -i [startPonit] [endPoint]。假如有四个 commit 分别是, a,b,c,d ,hash 分别是 ahash,bhash,chash,dhash。可以进行合并、删除、移动 commit 操作
+<strong>startPonit endPoint 为前开后闭区间，不包含startpoint</strong>
+
+#### 合并当前分支的多个 commit 为一个 commit , 不传 endPoint 则以startPoint最后一个commit为结束点
 ```
-git rebase -i bhash
+git rebase -i ahash
 
 // pick ahash fix:测试
 // s    xxxhash  feat:测试0
 ```
-可以对 bhash 后面的commit 做修改，具体操作参数如下表，如果是后面有多条，可以对 commit 进行顺序上的调整
+#### 可以对 ahash 后面的commit 做修改，具体操作参数如下表，如果是后面有多条，可以对 commit 进行顺序上的调整
 
 |  命令	  |  缩写  |	含义       |
 |  ----   | ----  |
@@ -55,14 +58,30 @@ git rebase -i bhash
 |  ----   | ----  |
 |  drop   |	  d	  |丢弃该commit|
 
+#### 修改当前 commit 的注释信息，然后保存
+
+### 合并某个区间的commit到其他分支
+```
+ git rebase -i --onto [startPonit] [endPoint] [branchName]
+```
+#### 此时会产生一个临时分支 3c0c4b04 记住它，然后切换到目标分支 比如 dev
+```
+git rebase 3c0c4b04
+// 之后 dev 分支就包含了startPonit 和 endPoint 之间的 commit
+```
+
 ## 重置本地修改 reset , revert , reflog
 
 ### reset 是直接修改 HEAD 版本位置，指向固定的版本,后面的八版本将不存在
 
 ### revert 是用于“反做”某一个版本，以达到撤销该版本的修改的目的。他后面的版本会被保留，并且会生成一个新的版本
+
+#### 假如有三个有序提交 a,b,c
 ```
-git revert HEAD
+git revert a
+
 ```
+#### 反做 a 后，b 和 c 会被保留，并且生成一个新的版本 d，变成 b,c,d
 
 ### reflog 用于恢复项目历史记录，他显示的是HEAD变更次数的列表。可恢复任何已提交的内容。场景比如 之前通过reset --hard 恢复到了某个commit，但是又想保留还原之后的一些更改。
 1、如果想恢复到某次提交，直接 git reset --hard HEAD

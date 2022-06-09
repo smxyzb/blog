@@ -44,7 +44,7 @@ git rebase -i ahash
 
 |  命令	  |  缩写  |	含义       |
 |  ----   | ----  |
-|  pick	  |   p   | 保留该commit|
+|  pick	  |   p   | 保留该commit |
 |  ----   | ----  |
 |  reword	|   r   |保留该commit，但需要修改该commit的注释|
 |  ----   | ----  |

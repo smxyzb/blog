@@ -1,9 +1,7 @@
-type Obj = {
- [k:string]:unknown
-}
+type ToArrary<T> = T extends any ? T[] : never
 
-type P = keyof Obj
+type StrArray = ToArrary<string>
+const arr:StrArray = ['222']
 
-const a:P = 2
-const b:P = 'x'
-const c:P = true // 不能将类型“boolean”分配给类型“string | number”。
+type NumArray = ToArrary<number>
+const numArr:NumArray = [100]

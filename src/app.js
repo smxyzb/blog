@@ -41,10 +41,3 @@ Function.prototype.Call = function (obj,...args) {
 var o = {}
 var s = Person.Call(o)
 console.log(s);
-
-
-// 如何构造一个指定内容的数组
-
-// 如何实现 flat  ，使用 reduce
-
-// 摄像头视频里 TypedArray 和 ArrayBuffer

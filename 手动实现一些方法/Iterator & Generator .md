@@ -39,21 +39,20 @@ console.log(it.next());
 // 先生成一个遍历器对象供使用
 const it = Iterator([1, 2])
 
-function generator(fn) {
-  let result
-  try {
-    result = fn()
-  } catch (error) {
+function generator(genF, resolve, reject) {
+  let result = null
+  try{
+    result = genF()
   }
-  if (result.done) {
-    return result
-  }
-  // 未完成则进入下一轮迭代
-  Promise.resolve(result.value).then((v) => {
-    generator(function myFn(params) {
-      return it.next(v)
+  catch(error){}
+  console.log(result);
+
+  while (!result.done) {
+    result = generator(function myFn(params) {
+      return it.next(result.value)
     })
-  })
+  }
+  return result
 }
 
 // generator(myFn)
@@ -68,70 +67,20 @@ generator(function myFn() {
 
 ## 我们先用已有的 generator 实现一个Await
 ```
-function Await(genF) {
-  return new Promise((resolve, reject) => {
-    const gen = genF()
-    generator(function () {
-      return gen.next()
-    })
-  })
+function Await(syncFn) {
+  return generator(syncFn)
 }
 
-// 使用Await
-var a = async function name(params) {
-  let res = await Await(function myFn() {
-    const next = it.next()
-    return next
-  })
-  console.log(res)
+var g = function myFn() {
+  const next = it.next()
+  return next
 }
-a()
+
+let res =  Await(g)
+console.log('res');
+console.log(res); 
 ```
-## 可以看到上面的代码已经能把 遍历器对象遍历出来了，但是我的 Await 内部 输出 res 是 undefined ，这是因为我们的 Await 函数内部的 Promise 没有 resolve generator 的返回值，所以我们需要在 Await 函数内部自己处理这个返回值。
 
-### 这里只需要在 Await 函数内部 让 generator 能够使用 Promise 的方法就可以了。
-
-```
-// 给 generator 函数添加一个 resolve ,reject 参数
-function generator(fn, resolve, reject) {
-  let result
-  try {
-    console.log('try', fn);
-    result = fn()
-  } catch (error) {
-    reject(error)
-  }
-  console.log('result', result);
-  if (result.done) {
-    console.log('done');
-    return resolve(result)
-  }
-  Promise.resolve(result.value).then((v) => {
-    // console.log('next generator',v);
-    generator(function myFn(params) {
-      return it.next(v)
-    }, resolve, reject) // 通过参数的形式传入
-  })
-}
-
-function Await(genF) {
-  console.log(genF);
-  return new Promise((resolve, reject) => {
-    generator(genF, resolve, reject) // 通过参数的形式传入
-  })
-}
-
-var a = async function name(params) {
-  var g = function myFn() {
-    const next = it.next()
-    return next
-  }
-  let res = await Await(g)
-  console.log(res);
-}
-a()
-
-```
 #### 我们使用ES6 的 generator 也可以遍历出来
 
 ```
@@ -142,10 +91,67 @@ function* genF() {
   return 4
 }
 
-var b = async function name(params) {
-  let res = await Await(genF)
-  console.log(res);
+let res = await Await(genF)
+console.log(res);
+
+```
+
+## 完整代码
+```
+function Iterator(params) {
+  let index = 0
+  return {
+    next(){
+      return index< params.length?{
+        value:params[index++],
+        done:false
+      }:{
+        value:undefined,
+        done:true
+      }
+    }
+  }
 }
 
-b()
+function generator(genF, resolve, reject) {
+  let result = null
+  try{
+    result = genF()
+  }
+  catch(error){}
+  console.log(result);
+
+  while (!result.done) {
+    result = generator(function myFn(params) {
+      return it.next(result.value)
+    })
+  }
+  return result
+}
+
+function Await(syncFn) {
+  return generator(syncFn)
+}
+
+// ES5
+const it = Iterator([1, 2, 3])
+var g = function myFn() {
+  const next = it.next()
+  return next
+}
+// ES6 
+function* genF() {
+  yield 1
+  yield 2
+  yield 3
+  return 4
+}
+
+let res1 =  Await(g)
+console.log('res1');
+console.log(res1);
+let res2 = Await(genF)
+console.log('res2');
+console.log(res2);
+
 ```

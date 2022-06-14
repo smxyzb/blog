@@ -1,43 +1,12 @@
-// function New(fn, ...args) {
-//   var obj = {}
-//   obj.__proto__ = fn.prototype
-//   var ret = fn.apply(obj, args)
-//   console.log(typeof ret);
-//   return typeof ret === 'object' ? ret : obj
-// }
-
-function New(...args) {
-  var fn = [].shift.call(args)
-  var obj = {}
-  obj.__proto__  = fn.prototype
-  console.log(args);
-  var ret = fn.apply(obj, args)
-  return typeof ret === 'object' ? ret : obj
+"use strict";
+class MyClass {
+    constructor() {
+        this.x = true;
+    }
+    check(s) {
+        return this[s]; // 使用类型断言为boolean类型
+    }
 }
-
-var Person = function (name, age) {
-  this.name = name
-  this.age = age
-}
-Person.prototype.hello = function name(params) {
-  console.log('hello');
-}
-
-// var p = New(Person,'ceshi',23)
-
-// console.log(p.hello());
-// console.log(p instanceof Person);
-
-
-
-
-Function.prototype.Call = function (obj,...args) {
-  obj.fn = this
-  console.log(obj.fn);
-  var ret = obj.fn(...args, 'ssss', 1111)
-  return ret
-}
-
-var o = {}
-var s = Person.Call(o)
-console.log(s);
+var m = new MyClass();
+var x = m.check('x');
+console.log(x);

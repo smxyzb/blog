@@ -140,6 +140,7 @@ var g = function myFn() {
   return next
 }
 // ES6 
+const it = genF()
 function* genF() {
   yield 1
   yield 2

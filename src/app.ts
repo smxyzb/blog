@@ -1,7 +1,10 @@
-type ToArrary<T> = T extends any ? T[] : never
-
-type StrArray = ToArrary<string>
-const arr:StrArray = ['222']
-
-type NumArray = ToArrary<number>
-const numArr:NumArray = [100]
+class MyClass {
+  [s:string]:boolean|((s:string)=>boolean)
+  x = true
+  check(s:string){
+    return this[s] as boolean // 使用类型断言为boolean类型
+  }
+}
+var m = new MyClass()
+var x = m.check('x')
+console.log(x);

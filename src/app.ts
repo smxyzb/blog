@@ -1,10 +1,15 @@
-class MyClass {
-  [s:string]:boolean|((s:string)=>boolean)
-  x = true
-  check(s:string){
-    return this[s] as boolean // 使用类型断言为boolean类型
+
+class MsgError extends Error {
+  constructor(m:string){
+    super(m)
+    // es5 环境下需要设置原型
+    Object.setPrototypeOf(this,MsgError.prototype)
+
+  }
+  show(){
+    console.log(this.message);
   }
 }
-var m = new MyClass()
-var x = m.check('x')
-console.log(x);
+
+var m = new MsgError('hello')
+console.log(m.show());

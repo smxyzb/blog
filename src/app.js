@@ -1,12 +1,14 @@
 "use strict";
-class MyClass {
-    constructor() {
-        this.x = true;
+class MsgError extends Error {
+    constructor(m) {
+        super(m);
+        // es5 环境下需要设置原型
+        Object.setPrototypeOf(this, MsgError.prototype);
     }
-    check(s) {
-        return this[s]; // 使用类型断言为boolean类型
+    show() {
+        console.log(this.message);
     }
 }
-var m = new MyClass();
-var x = m.check('x');
-console.log(x);
+var m = new MsgError('hello');
+console.log(m.show()); // hello
+console.log(m instanceof MsgError); //true

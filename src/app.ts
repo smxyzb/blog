@@ -1,15 +1,12 @@
+import { Type } from "typescript"
 
-class MsgError extends Error {
-  constructor(m:string){
-    super(m)
-    // es5 环境下需要设置原型
-    Object.setPrototypeOf(this,MsgError.prototype)
+class Box<Type>{
+  content:Type
 
+  constructor(value:Type){
+    this.content = value
   }
-  show(){
-    console.log(this.message);
-  }
+
+  static defaultVal = 100
 }
 
-var m = new MsgError('hello')
-console.log(m.show());

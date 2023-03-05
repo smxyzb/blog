@@ -6,6 +6,7 @@ node_modules
 /output
 /public/vendor
 /core
+/Vue3/core
 git.sh
 
 # local env files
